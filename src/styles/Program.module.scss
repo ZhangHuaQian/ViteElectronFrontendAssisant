@@ -1,0 +1,73 @@
+.Program {
+  display: grid;
+  grid-template-rows: 50px auto;
+  .nav {
+    display: grid;
+    height: 100%;
+    justify-content: start;
+    align-content: center;
+  }
+  .context {
+    display: grid;
+    height: 77vh;
+    overflow-y: scroll;
+    width: 100%;
+    grid-template-columns: 1fr;
+    background: #f4f4f4;
+    justify-content: center;
+    padding: 30px;
+    column-gap: 20px;
+    row-gap: 20px;
+    .itemContext {
+      display: grid;
+      width: 100%;
+      height: 331px;
+      background-color: gray;
+      box-shadow: 0 0 20px gray;
+    }
+  }
+
+  .context::-webkit-scrollbar {
+    width: 4px;
+  }
+  .context::-webkit-scrollbar-track {
+    background-color: #ccc;
+  }
+  .context::-webkit-scrollbar-thumb {
+    background-color: #fff;
+  }
+}
+
+.ProgramCard {
+    .cardContext {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        .ribbon {
+            display: grid;
+            grid-template-columns: 1fr;
+            row-gap: 10px;
+            .ribbon_com {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                background-color: red;
+            }
+        }
+    }
+}
+
+.ProgramDrawer {
+    margin-top: 20px;
+    height: 760px;
+    overflow-y: scroll;
+}
+.ProgramDrawer::-webkit-scrollbar {
+    width: 4px;
+}
+.ProgramDrawer::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+.ProgramDrawer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+
+

@@ -21,7 +21,13 @@ const onAdd = () => {
   setModalType('ADD')
   showModal()
 }
+const hangleBulkImport = () => {
 
+}
+
+const handleBulkExport = () => {
+
+}
 const getData = () => {
   GetItem().then(res => {
     dataSource.value = res as IssueFormState[]
@@ -60,4 +66,4 @@ const columns = [
   }
 ]
 
-export { getData, onDelete, dataSource, columns, onEdit, onAdd }
+export { getData, onDelete, dataSource, columns, onEdit, onAdd, hangleBulkImport, handleBulkExport }

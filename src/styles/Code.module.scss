@@ -1,0 +1,35 @@
+.Code {
+  display: flex;
+  flex-direction: column;
+  .nav {
+    display: grid;
+    height: 50px;
+    justify-content: start;
+    align-content: center;
+    grid-template-columns: repeat(3,40px) auto;
+  }
+  .context {
+    background: #f4f4f4;
+    display: grid;
+    height: 77vh;
+    overflow-y: scroll;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    .editable-row-operations {
+      display: inline;
+      a {
+        margin-right: 8px;
+      }
+    }
+  }
+  .context::-webkit-scrollbar {
+    width: 4px;
+  }
+  .context::-webkit-scrollbar-track {
+    background-color: #ccc;
+  }
+  .context::-webkit-scrollbar-thumb {
+    background-color: #fff;
+  }
+}

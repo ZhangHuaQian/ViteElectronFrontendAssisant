@@ -46,38 +46,5 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.Program {
-    display: grid;
-    grid-template-rows: 50px auto;
-  .nav {
-      display: grid;
-      height: 100%;
-      justify-content: start;
-      align-content: center;
-  }
-  .context {
-      display: grid;
-      height: 77vh;
-      overflow-y: scroll;
-      width: 100%;
-      grid-template-columns: 1fr;
-      background:#f4f4f4;
-      justify-content: center;
-      padding: 30px;
-      column-gap: 20px;
-      row-gap: 20px;
-      .itemContext {
-          display: grid;
-          width: 100%;
-          height: 331px;
-          background-color: gray;
-          box-shadow: 0 0 20px gray
-      }
-  }
-
-.context::-webkit-scrollbar{width:4px}
-.context::-webkit-scrollbar-track{background-color:#ccc;}
-.context::-webkit-scrollbar-thumb{background-color:#fff;}
-}
 
 </style>

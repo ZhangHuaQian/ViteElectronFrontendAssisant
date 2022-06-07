@@ -6,6 +6,16 @@
           <PlusSquareOutlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
+      <a-tooltip title="批量记录" color="#BEBEBE" placement="bottom" @click="hangleBulkImport">
+        <div class="AddButton">
+          <upload-outlined :style="{ fontSize: '30px' }" />
+        </div>
+      </a-tooltip>
+      <a-tooltip title="批量导出" color="#BEBEBE" placement="bottom" @click="handleBulkExport">
+        <div class="AddButton">
+          <download-outlined :style="{ fontSize: '30px' }" />
+        </div>
+      </a-tooltip>
     </div>
     <div class="context">
       <a-table :columns="columns" :data-source="dataSource" bordered>
@@ -53,7 +63,13 @@
 </template>
 
 <script lang="ts" setup>
-import { PlusSquareOutlined, CheckOutlined, EditOutlined } from '@ant-design/icons-vue'
+import {
+  PlusSquareOutlined,
+  CheckOutlined,
+  EditOutlined,
+  UploadOutlined,
+  DownloadOutlined,
+} from '@ant-design/icons-vue'
 import { defineComponent, onMounted } from 'vue'
 import { showModal } from './components/Modal'
 import QModal from './components/Modal.vue'
@@ -70,41 +86,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-.TechnicalArticles {
-  display: grid;
-  grid-template-rows: 50px auto;
-  .nav {
-    display: grid;
-    height: 100%;
-    justify-content: start;
-    align-content: center;
-    //   padding-left:20px;
-    //   background: #a4aca7;
-  }
-  .context {
-    background: #f4f4f4;
-    display: grid;
-    height: 77vh;
-    overflow-y: scroll;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    .editable-row-operations {
-      display: inline;
-      a {
-        margin-right: 8px;
-      }
-    }
-  }
-}
-.context::-webkit-scrollbar {
-  width: 4px;
-}
-.context::-webkit-scrollbar-track {
-  background-color: #ccc;
-}
-.context::-webkit-scrollbar-thumb {
-  background-color: #fff;
-}
-</style>
+<style lang="scss" scoped></style>

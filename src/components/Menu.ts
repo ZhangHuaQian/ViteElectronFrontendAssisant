@@ -14,7 +14,7 @@ export const MenuItem: MenuItem[] = [
   },
   {
     name: '政采云前端小报',
-    to: '/Books',
+    to: '/Zoom',
     icon: ReadOutlined
   },
   {

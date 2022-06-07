@@ -12,9 +12,9 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Program/index.vue')
       },
       {
-        path: '/Books',
-        name: 'Books',
-        component: () => import('@/views/Books/index.vue')
+        path: '/Zoom',
+        name: 'Zoom',
+        component: () => import('@/views/Zoom/index.vue')
       },
       {
         path: '/Issue',

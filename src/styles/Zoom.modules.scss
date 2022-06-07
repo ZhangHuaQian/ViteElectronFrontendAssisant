@@ -1,0 +1,47 @@
+.Zoom {
+  background: #f4f4f4;
+  width: 100%;
+  height: 77vh;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 15px;
+  justify-items: center;
+  .item {
+    background: #ffffff;
+    width: 250px;
+    height: 250px;
+    margin: 7px;
+    box-shadow: 10px 10px 5px rgba(100, 100, 100, 0.5);
+    border-radius: 5px;
+    a {
+      display: grid;
+      grid-template-rows: 8fr 1fr;
+      .title {
+        font-family: Pacifico, cursive;
+        color: #666;
+        font-size: 1rem;
+        display: flex;
+        justify-self: center;
+      }
+      .images {
+        display: grid;
+        justify-content: center;
+        align-content: center;
+      }
+    }
+  }
+  .item:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.Zoom::-webkit-scrollbar {
+  width: 4px;
+}
+.Zoom::-webkit-scrollbar-track {
+  background-color: #ccc;
+}
+.Zoom::-webkit-scrollbar-thumb {
+  background-color: #fff;
+}

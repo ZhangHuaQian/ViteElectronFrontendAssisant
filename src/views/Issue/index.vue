@@ -1,9 +1,19 @@
 <template>
   <div class="issue">
     <div class="nav">
-      <a-tooltip title="记录问题" color="#BEBEBE" placement="rightBottom" @click="onAdd">
+      <a-tooltip title="记录问题" color="#BEBEBE" placement="bottom" @click="onAdd">
         <div class="AddButton">
           <PlusSquareOutlined :style="{ fontSize: '30px' }" />
+        </div>
+      </a-tooltip>
+      <a-tooltip title="批量记录" color="#BEBEBE" placement="bottom" @click="hangleBulkImport">
+        <div class="AddButton">
+          <upload-outlined :style="{ fontSize: '30px' }" />
+        </div>
+      </a-tooltip>
+      <a-tooltip title="批量导出" color="#BEBEBE" placement="bottom" @click="handleBulkExport">
+        <div class="AddButton">
+          <download-outlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
     </div>
@@ -32,9 +42,18 @@
 
 <script lang="ts" setup>
 import { modalTitle, modalType } from './components/Modal'
-import { PlusSquareOutlined } from '@ant-design/icons-vue'
+import { PlusSquareOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons-vue'
 import QModal from './components/Modal.vue'
-import { dataSource, getData, onDelete, columns, onEdit, onAdd } from './index'
+import {
+  dataSource,
+  getData,
+  onDelete,
+  columns,
+  onEdit,
+  onAdd,
+  hangleBulkImport,
+  handleBulkExport,
+} from './index'
 import { onMounted } from 'vue'
 
 onMounted(() => {
@@ -42,43 +61,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-.issue {
-  // display: grid;
-  // grid-template-rows: 80px 83vh;
-  display: flex;
-  flex-direction: column;
-  .nav {
-    display: grid;
-    height: 50px;
-    justify-content: start;
-    align-content: center;
-    // padding-left: 20px;
-    // background: #a4aca7;
-  }
-  .context {
-    background: #f4f4f4;
-    display: grid;
-    height: 77vh;
-    overflow-y: scroll;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    .editable-row-operations {
-      display: inline;
-      a {
-        margin-right: 8px;
-      }
-    }
-  }
-}
-.context::-webkit-scrollbar {
-  width: 4px;
-}
-.context::-webkit-scrollbar-track {
-  background-color: #ccc;
-}
-.context::-webkit-scrollbar-thumb {
-  background-color: #fff;
-}
-</style>
+<style lang="scss" scoped></style>

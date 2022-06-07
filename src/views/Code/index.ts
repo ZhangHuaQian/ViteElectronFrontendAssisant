@@ -1,15 +1,18 @@
-import { GetItem, DeleteItem, GetKeyToItem } from '@/utils/CodedataStrore'
+import { GetItem, DeleteItem, GetKeyToItem, AddItem } from '@/utils/CodedataStrore'
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
 // import { resetFields, validate } from './components/Form'
 import { showModal, setModalTitle, setModalType } from './components/Modal'
 import { EditForm } from './components/Form'
+
+import useBulkImportXLSX from '@/utils/useBulkImportXLSX'
+import useBulkExportXLSX from '@/utils/useBulkExportXLSX'
 const data: CodeFormState[] = []
 
 const dataSource = ref(data)
 
 const onEdit = (key: number) => {
-  GetKeyToItem(key).then(_ => {
+  GetKeyToItem(key).then((_) => {
     EditForm(_ as CodeFormState)
     setModalTitle('修改问题')
     setModalType('EDIT')
@@ -21,19 +24,26 @@ const onAdd = () => {
   setModalType('ADD')
   showModal()
 }
+const hangleBulkImport = () => {
+  useBulkImportXLSX(AddItem, getData)
+}
+
+const handleBulkExport = async () => {
+  useBulkExportXLSX(GetItem)
+
+}
 
 const getData = () => {
-  GetItem().then(res => {
-    dataSource.value = res as CodeFormState[]
+  GetItem().then((res) => {
+    dataSource.value = res as CodeFormState[];
     message.success('获取成功')
-  }).catch(_ => {
+  }).catch((_: Event) => {
     console.log(_)
   })
 }
 
 const onDelete = (key: number) => {
-  DeleteItem(key).then(_ => {
-    console.log(_)
+  DeleteItem(key).then(() => {
     getData()
   }).catch((_: Event) => {
     console.log(_)
@@ -60,4 +70,4 @@ const columns = [
   }
 ]
 
-export { getData, onDelete, dataSource, columns, onEdit, onAdd }
+export { getData, onDelete, dataSource, columns, onEdit, onAdd, hangleBulkImport, handleBulkExport }

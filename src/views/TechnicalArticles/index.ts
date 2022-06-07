@@ -34,6 +34,14 @@ const onDelete = (key: number) => {
     console.log(_)
   })
 }
+
+const hangleBulkImport = ()=>{
+
+}
+
+const handleBulkExport = ()=>{
+
+}
 const columns = [
   {
     title: '文章名称',
@@ -54,4 +62,4 @@ const columns = [
   }
 ]
 
-export { dataSource, editableData, edit, save, cancel, columns, onDelete, getData }
+export { dataSource, editableData, edit, save, cancel, columns, onDelete, getData, hangleBulkImport, handleBulkExport }

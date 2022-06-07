@@ -1,7 +1,7 @@
 import Axios from 'axios'
-
+import { ref, nextTick } from 'vue'
 type Spinning = boolean
-let GridItem: BookItem[] = []
+let GridItem = ref<BookItem[]>([])
 let spinning: Spinning = false
 const Init = () => {
   spinning = true
@@ -10,7 +10,7 @@ const Init = () => {
   }).then((res) => {
     return JSON.parse(res)
   }).then((res) => {
-    GridItem = res.homeStore.cardList.reverse()
+    GridItem.value = res.homeStore.cardList.reverse()
     spinning = false
   }).catch((e) => { console.log(e) })
 }

@@ -1,0 +1,43 @@
+@import './styles/Code.module.scss';
+@import './styles/Issue.module.scss';
+@import './styles/TechnicalArticles.module.scss';
+@import './styles/Zoom.modules.scss';
+@import './styles/Program.module.scss';
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Pacifico, cursive;
+  .Home {
+    width: 100vw;
+    height: 100vh;
+    .trigger {
+      font-size: 18px;
+      line-height: 64px;
+      padding: 0 24px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .logo {
+      height: 32px;
+      background: rgba(255, 255, 255, 0.3);
+      margin: 16px;
+    }
+
+    .trigger:hover {
+      color: #1890ff;
+    }
+    .ant-layout-has-sider {
+      height: 100vh;
+    }
+    .ant-layout-sider {
+      background: white;
+    }
+    .ant-layout-footer {
+      padding: 0;
+    }
+    .site-layout .site-layout-background {
+      background: #fff;
+    }
+  }
+}

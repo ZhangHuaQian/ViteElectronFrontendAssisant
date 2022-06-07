@@ -1,12 +1,35 @@
 // electron-main/index.ts
-import { app, BrowserWindow, protocol, ipcMain } from "electron";
+import { app, BrowserWindow, protocol, ipcMain, Menu, MenuItemConstructorOptions,dialog } from "electron";
 import path from "path";
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { exec, ChildProcess } from 'child_process'
 import { autoUpdater } from 'electron-updater'
+import useOpenDialog from './utils/useOpenDialog'
+import useSaveDialog from "./utils/useSaveDialog";
 let workerProcess: ChildProcess
 const isDevelopment = process.env.NODE_ENV !== 'production'
 let win: any
+
+//自定义菜单
+const template = [{
+  label: '开发者选项',
+  submenu: [
+    { label: '控制台', role: 'toggleDevTools' },
+    { label: '强制刷新', role: 'forceReload' },
+    { label: '刷新', role: 'reload' },
+    { label: '全屏', role: 'togglefullscreen' }
+  ]
+}] as MenuItemConstructorOptions[];
+//从模板中创建菜单
+const myMenu = Menu.buildFromTemplate(template);
+//设置为应用程序菜单
+Menu.setApplicationMenu(myMenu)
+//右键菜单
+const rightTemplate = [
+  { label: '复制', accelerator: 'ctrl + c', role: 'copy' },
+  { label: '粘贴', accelerator: 'ctrl + v', role: 'paste' },
+  { label: '刷新', accelerator: 'ctrl + f', role: 'reload' }] as MenuItemConstructorOptions[];
+const rightMenu = Menu.buildFromTemplate(rightTemplate)
 
 function sendStatusToWindow(text: string) {
   win.webContents.send('message', text);
@@ -105,7 +128,20 @@ app.whenReady().then(async () => {
     workerProcess.on('error', (error: Event) => {
       console.log(error)
     })
-  })
+  }),
+    ipcMain.on('contextmenu', (e) => {
+      rightMenu.popup()
+    }),
+    ipcMain.on('openFile', async(e, arg) => {
+      const usedialog = await useOpenDialog(dialog, arg);
+      await e.sender.send('openFileCallBack', usedialog);
+
+    }),
+    ipcMain.on('savaFile', async(e, arg) => {
+      const usedialog = await useSaveDialog(dialog, arg);
+      await e.sender.send('savaFileCallBack', usedialog);
+
+    })
 });
 
 

@@ -19,7 +19,7 @@
                 <a-button style="margin-left: 10px;" type="dashed" @click="handleClose">关闭进程</a-button>
             </div>
         </template>
-        <div class="containers">
+        <div class="ProgramDrawer">
             <a-list item-layout="horizontal" :data-source="consoleData">
                 <template #renderItem="{ item }">
                     <a-list-item>
@@ -46,18 +46,5 @@ defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.containers {
-    margin-top: 20px;
-    height: 760px;
-    overflow-y: scroll;
-}
-.containers::-webkit-scrollbar {
-    width: 4px;
-}
-.containers::-webkit-scrollbar-track {
-    background-color: #fff;
-}
-.containers::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-}
+
 </style>

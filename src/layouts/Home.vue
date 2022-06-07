@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
+  <div class="Home">
     <a-layout>
-      <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
-        <div class="logo" />
+      <a-layout-sider style="border-top: 1px solid #d0d0d0;border-bottom: 1px solid #d0d0d0;" v-model:collapsed="collapsed" :trigger="null" collapsible>
+        <div class="logo" ></div>
         <QMenu />
       </a-layout-sider>
       <a-layout>
-        <a-layout-header style="background: #fff; padding: 0">
+        <a-layout-header style="background: #fff; padding: 0;border-top: 1px solid #d0d0d0;border-left: 1px solid #d0d0d0;border-bottom: 1px solid #d0d0d0;">
           <menu-unfold-outlined
             v-if="collapsed"
             class="trigger"
@@ -54,38 +54,5 @@ defineComponent({
 let collapsed = ref<boolean>(false)
 </script>
 <style lang="scss">
-.container .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
 
-.container .trigger:hover {
-  color: #1890ff;
-}
-
-.container .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.3);
-  margin: 16px;
-}
-
-.site-layout .site-layout-background {
-  background: #fff;
-}
-.container {
-  width: 100vw;
-  height: 100vh;
-  .ant-layout-has-sider {
-    height: 100vh;
-  }
-  .ant-layout-sider {
-    background: white;
-  }
-  .ant-layout-footer {
-    padding: 0;
-  }
-}
 </style>
