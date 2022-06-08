@@ -1,8 +1,11 @@
 import { reactive, ref, UnwrapRef, toRaw } from 'vue'
+import { message } from 'ant-design-vue'
 import { cloneDeep } from 'lodash-es'
-import { GetItem, DeleteItem, UpdateItem } from '@/utils/dataStrore'
+import { GetItem, DeleteItem, UpdateItem, AddItem } from '@/utils/dataStrore'
+import useBulkImportXLSX from '@/utils/useBulkImportXLSX'
+import useBulkExportXLSX from '@/utils/useBulkExportXLSX'
 
-const data:DataItem[] = []
+const data: DataItem[] = []
 
 const dataSource = ref(data)
 const editableData: UnwrapRef<Record<string, DataItem>> = reactive({})
@@ -17,7 +20,8 @@ const save = (key: number) => {
 }
 const getData = () => {
   GetItem().then(res => {
-    dataSource.value = res as DataItem[]
+    dataSource.value = res as DataItem[];
+    message.success('获取成功')
   }).catch(_ => {
     console.log(_)
   })
@@ -35,11 +39,20 @@ const onDelete = (key: number) => {
   })
 }
 
-const hangleBulkImport = ()=>{
-
+const hangleBulkImport = () => {
+  useBulkImportXLSX(AddItem, getData).then(res => {
+    message.success(res)
+  }).catch(e => {
+    message.error(e?.message)
+  })
 }
 
-const handleBulkExport = ()=>{
+const handleBulkExport = async () => {
+  useBulkExportXLSX(GetItem).then(res => {
+    message.success(res)
+  }).catch(e => {
+    message.error(e?.message)
+  })
 
 }
 const columns = [

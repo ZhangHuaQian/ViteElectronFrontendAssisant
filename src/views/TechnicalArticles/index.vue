@@ -1,19 +1,19 @@
 <template>
   <div class="TechnicalArticles">
     <div class="nav">
-      <a-tooltip title="添加宝藏文章" color="#c6dfc8" placement="rightBottom" @click="showModal">
+      <a-tooltip title="添加宝藏文章" color="#BEBEBE" placement="bottom" @click="showModal">
         <div class="AddButton">
           <PlusSquareOutlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
       <a-tooltip title="批量记录" color="#BEBEBE" placement="bottom" @click="hangleBulkImport">
         <div class="AddButton">
-          <upload-outlined :style="{ fontSize: '30px' }" />
+          <import-outlined :style="{ fontSize: '30px' }" /> 
         </div>
       </a-tooltip>
       <a-tooltip title="批量导出" color="#BEBEBE" placement="bottom" @click="handleBulkExport">
         <div class="AddButton">
-          <download-outlined :style="{ fontSize: '30px' }" />
+          <export-outlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
     </div>
@@ -67,13 +67,12 @@ import {
   PlusSquareOutlined,
   CheckOutlined,
   EditOutlined,
-  UploadOutlined,
-  DownloadOutlined,
+  ImportOutlined, ExportOutlined
 } from '@ant-design/icons-vue'
 import { defineComponent, onMounted } from 'vue'
 import { showModal } from './components/Modal'
 import QModal from './components/Modal.vue'
-import { dataSource, editableData, edit, save, cancel, columns, onDelete, getData } from './index'
+import { dataSource, editableData, edit, save, cancel, columns, onDelete, getData,handleBulkExport,hangleBulkImport } from './index'
 
 defineComponent({
   PlusSquareOutlined,

@@ -25,11 +25,19 @@ const onAdd = () => {
   showModal()
 }
 const hangleBulkImport = () => {
-  useBulkImportXLSX(AddItem, getData)
+  useBulkImportXLSX(AddItem, getData).then(res => {
+    message.success(res)
+  }).catch(e => {
+    message.error(e?.message)
+  })
 }
 
 const handleBulkExport = async () => {
-  useBulkExportXLSX(GetItem)
+  useBulkExportXLSX(GetItem).then(res => {
+    message.success(res)
+  }).catch(e => {
+    message.error(e?.message)
+  })
 
 }
 
@@ -58,7 +66,7 @@ const columns = [
     slots: { customRender: 'describe' }
   },
   {
-    title: '解决方案',
+    title: '代码片段',
     dataIndex: 'solution',
     width: '40%',
     slots: { customRender: 'solution' }

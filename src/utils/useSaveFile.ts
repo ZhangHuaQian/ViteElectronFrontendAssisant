@@ -20,7 +20,7 @@ export default (arg: OpenDialogArg, data: Buffer): Promise<any> => {
                     }
                 })
             } else {
-                reject(new Error('已保存选择文件'))
+                reject(new Error('已取消保存文件'))
             }
         })
 

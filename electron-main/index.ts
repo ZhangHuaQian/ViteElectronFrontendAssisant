@@ -1,11 +1,13 @@
 // electron-main/index.ts
-import { app, BrowserWindow, protocol, ipcMain, Menu, MenuItemConstructorOptions,dialog } from "electron";
+import { app, BrowserWindow, protocol, ipcMain, Menu, MenuItemConstructorOptions, dialog } from "electron";
 import path from "path";
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
-import { exec, ChildProcess } from 'child_process'
+import { exec, spawn, ChildProcess } from 'child_process'
 import { autoUpdater } from 'electron-updater'
 import useOpenDialog from './utils/useOpenDialog'
 import useSaveDialog from "./utils/useSaveDialog";
+const controller = new AbortController();
+const { signal } = controller;
 let workerProcess: ChildProcess
 const isDevelopment = process.env.NODE_ENV !== 'production'
 let win: any
@@ -109,35 +111,43 @@ app.whenReady().then(async () => {
     console.log(args)
   })
   ipcMain.on('NpmKill', () => {
-    console.log(workerProcess.pid)
+
+    console.log(workerProcess.pid);
+    workerProcess.kill('SIGINT');
+    console.log(workerProcess.killed)
   })
   ipcMain.on('NpmRunning', (e, key, Path) => {
-    console.log('running')
     // 修改环境 development -> production
     const env = {
       ...process.env,
       NODE_ENV: 'production'
     }
-    workerProcess = exec('npm run ' + key, { cwd: Path, windowsHide: false, shell: 'powershell', maxBuffer: 1024 * 1024 * 1024 * 1024, killSignal: 'SIGTERM', env })
-    workerProcess!.stdout!.on('data', (data: string) => {
-      console.log(data)
+    //, maxBuffer: 1024 * 1024 * 1024 * 1024  ,detached: true
+    workerProcess = spawn('npm run ' + key, { cwd: Path, windowsHide: false, stdio: ['ignore', 'pipe', 'pipe'], shell: 'powershell', env })
+    workerProcess?.stdout?.on('data', (data: string) => {
+      console.log(data.toString())
       // consoleData.value.push(data)
-      e.sender.send('NpmRunningResult', data)
+      e.sender.send('NpmRunningResult', data.toString())
     })
-
+    workerProcess.stderr?.on('data', data => {
+      console.log('errordata', data.toString())
+    })
     workerProcess.on('error', (error: Event) => {
       console.log(error)
+    })
+    workerProcess.on('exit', (code, signal) => {
+      console.log(code, signal, 'exit')
     })
   }),
     ipcMain.on('contextmenu', (e) => {
       rightMenu.popup()
     }),
-    ipcMain.on('openFile', async(e, arg) => {
+    ipcMain.on('openFile', async (e, arg) => {
       const usedialog = await useOpenDialog(dialog, arg);
       await e.sender.send('openFileCallBack', usedialog);
 
     }),
-    ipcMain.on('savaFile', async(e, arg) => {
+    ipcMain.on('savaFile', async (e, arg) => {
       const usedialog = await useSaveDialog(dialog, arg);
       await e.sender.send('savaFileCallBack', usedialog);
 

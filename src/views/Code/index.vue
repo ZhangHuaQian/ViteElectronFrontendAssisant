@@ -8,12 +8,12 @@
       </a-tooltip>
       <a-tooltip title="批量记录" color="#BEBEBE" placement="bottom" @click="hangleBulkImport">
         <div class="AddButton">
-          <upload-outlined :style="{ fontSize: '30px' }" />
+          <import-outlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
       <a-tooltip title="批量导出" color="#BEBEBE" placement="bottom" @click="handleBulkExport">
         <div class="AddButton">
-          <download-outlined :style="{ fontSize: '30px' }" />
+          <export-outlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
     </div>
@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
 import { modalTitle, modalType } from './components/Modal'
-import { PlusSquareOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons-vue'
+import { PlusSquareOutlined, ImportOutlined, ExportOutlined } from '@ant-design/icons-vue'
 import QModal from './components/Modal.vue'
 import {
   dataSource,

@@ -1,9 +1,11 @@
-import { GetItem, DeleteItem, GetKeyToItem } from '@/utils/IssuedataStrore'
+import { GetItem, DeleteItem, GetKeyToItem, AddItem } from '@/utils/IssuedataStrore'
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
 // import { resetFields, validate } from './components/Form'
 import { showModal, setModalTitle, setModalType } from './components/Modal'
 import { EditForm } from './components/Form'
+import useBulkImportXLSX from '@/utils/useBulkImportXLSX'
+import useBulkExportXLSX from '@/utils/useBulkExportXLSX'
 const data: IssueFormState[] = []
 
 const dataSource = ref(data)
@@ -22,10 +24,19 @@ const onAdd = () => {
   showModal()
 }
 const hangleBulkImport = () => {
-
+  useBulkImportXLSX(AddItem, getData).then(res => {
+    message.success(res)
+  }).catch(e => {
+    message.error(e?.message)
+  })
 }
 
-const handleBulkExport = () => {
+const handleBulkExport = async () => {
+  useBulkExportXLSX(GetItem).then(res => {
+    message.success(res)
+  }).catch(e => {
+    message.error(e?.message)
+  })
 
 }
 const getData = () => {
