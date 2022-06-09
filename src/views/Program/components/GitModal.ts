@@ -10,34 +10,42 @@ let GitPushInfoData = reactive<ProgramFormState>({
   projectName: '',
   projectAddress: '',
   gitDepot: '',
-  key: 0
+  key: 0,
 })
 let gitOutConsole = ref<string[]>([])
 const handleOk = (e: MouseEvent) => {
   console.log(e, gitCommitMessage)
   // visible.value = false
-  gitAdd = execSync('git add .', { cwd: GitPushInfoData.projectAddress, shell: 'powershell', encoding: 'utf8', maxBuffer: 1024 * 1024 * 1024 })
-  gitCommit = execSync('git commit -m ' + gitCommitMessage.value, { cwd: GitPushInfoData.projectAddress, shell: 'powershell', encoding: 'utf8', maxBuffer: 1024 * 1024 * 1024 })
-  gitPull = execSync('git pull origin master', { cwd: GitPushInfoData.projectAddress, shell: 'powershell', encoding: 'utf8', maxBuffer: 1024 * 1024 * 1024 })
-  gitPush = execSync('git push -u origin master', { cwd: GitPushInfoData.projectAddress, shell: 'powershell', encoding: 'utf8', maxBuffer: 1024 * 1024 * 1024 })
-  // gitAdd!.stdout!.on('data', (data:string) => {
-  //   console.log(data, 1)
-  //   // consoleData.value.push(data)
-  // })
-  // gitCommit!.stdout!.on('data', (data:string) => {
-  //   console.log(data, 2)
-  //   // consoleData.value.push(data)
-  // })
-  // gitPush!.stdout!.on('data', (data:string) => {
-  //   console.log(data, 3)
-  //   // consoleData.value.push(data)
-  // })
+  gitAdd = execSync('git add .', {
+    cwd: GitPushInfoData.projectAddress,
+    shell: 'powershell',
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 1024,
+  })
+  gitCommit = execSync('git commit -m ' + gitCommitMessage.value, {
+    cwd: GitPushInfoData.projectAddress,
+    shell: 'powershell',
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 1024,
+  })
+  gitPull = execSync('git pull origin master', {
+    cwd: GitPushInfoData.projectAddress,
+    shell: 'powershell',
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 1024,
+  })
+  gitPush = execSync('git push -u origin master', {
+    cwd: GitPushInfoData.projectAddress,
+    shell: 'powershell',
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 1024,
+  })
 
   console.log(gitAdd, '-1\n', gitCommit, '-2\n', gitPull, '-3\n', gitPush, '-4')
   gitOutConsole.value.push(gitAdd, gitCommit, gitPull, gitPush)
 }
 
-const showGitModal = (data:ProgramFormState) => {
+const showGitModal = (data: ProgramFormState) => {
   GitPushInfoData = data
   visible.value = true
 }
@@ -47,4 +55,12 @@ const handleClose = () => {
   gitOutConsole = ref<string[]>([])
 }
 
-export { handleOk, showGitModal, visible, gitCommitMessage, GitPushInfoData, handleClose, gitOutConsole }
+export {
+  handleOk,
+  showGitModal,
+  visible,
+  gitCommitMessage,
+  GitPushInfoData,
+  handleClose,
+  gitOutConsole,
+}

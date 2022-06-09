@@ -1,16 +1,16 @@
 import Dexie from 'dexie'
 interface Code {
-  key?: number;
-  describe?: string;
-  solution?: string;
+  key?: number
+  describe?: string
+  solution?: string
 }
 
 class CodeDatabase extends Dexie {
-  public CodeStore: Dexie.Table<Code, number>; // id is number in this case
+  public CodeStore: Dexie.Table<Code, number> // id is number in this case
   public constructor() {
     super('CodeDatabase')
     this.version(1).stores({
-      CodeStore: '++key,describe,solution'
+      CodeStore: '++key,describe,solution',
     })
     this.CodeStore = this.table('CodeStore')
   }
@@ -18,12 +18,12 @@ class CodeDatabase extends Dexie {
 
 const db = new CodeDatabase()
 
-const AddItem = ({describe, solution}:Code) => {
+const AddItem = ({ describe, solution }: Code) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.CodeStore, async () => {
       const id = await db.CodeStore.add({ describe, solution })
       resolve(`添加成功，文章ID为 ${id}`)
-    }).catch(e => {
+    }).catch((e) => {
       reject(e.stack || e)
     })
   })
@@ -32,12 +32,14 @@ const AddItem = ({describe, solution}:Code) => {
 const DeleteItem = (key: number) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.CodeStore, async () => {
-      await db.CodeStore.delete(key).then(_ => {
-        resolve(_)
-      }).catch(e => {
-        reject(e)
-      })
-    }).catch(e => {
+      await db.CodeStore.delete(key)
+        .then((_) => {
+          resolve(_)
+        })
+        .catch((e) => {
+          reject(e)
+        })
+    }).catch((e) => {
       reject(e.stack || e)
     })
   })
@@ -46,22 +48,26 @@ const DeleteItem = (key: number) => {
 const GetItem = () => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.CodeStore, async () => {
-      await db.CodeStore.toArray().then(_ => {
-        resolve(_)
-      }).catch(e => {
-        reject(e)
-      })
+      await db.CodeStore.toArray()
+        .then((_) => {
+          resolve(_)
+        })
+        .catch((e) => {
+          reject(e)
+        })
     })
   })
 }
 const GetKeyToItem = (key: number) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.CodeStore, async () => {
-      await db.CodeStore.get(key).then(_ => {
-        resolve(_)
-      }).catch(e => {
-        reject(e)
-      })
+      await db.CodeStore.get(key)
+        .then((_) => {
+          resolve(_)
+        })
+        .catch((e) => {
+          reject(e)
+        })
     })
   })
 }
@@ -69,11 +75,13 @@ const GetKeyToItem = (key: number) => {
 const UpdateItem = (key: number, changes: Code) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.CodeStore, async () => {
-      await db.CodeStore.update(key, changes).then(_ => {
-        resolve(_)
-      }).catch(e => {
-        reject(e)
-      })
+      await db.CodeStore.update(key, changes)
+        .then((_) => {
+          resolve(_)
+        })
+        .catch((e) => {
+          reject(e)
+        })
     })
   })
 }

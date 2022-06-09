@@ -1,7 +1,14 @@
 <template>
-    <a-modal v-model:visible="visible" width="80vw" :title="title" @ok="handleOk" @Cancel="handleClose" :destroyOnClose="true">
-      <QForm />
-    </a-modal>
+  <a-modal
+    v-model:visible="visible"
+    width="80vw"
+    :title="title"
+    @ok="handleOk"
+    @Cancel="handleClose"
+    :destroyOnClose="true"
+  >
+    <QForm />
+  </a-modal>
 </template>
 
 <script lang="ts" setup>
@@ -10,10 +17,8 @@ import QForm from './Form.vue'
 import { defineComponent } from 'vue'
 
 defineComponent({
-  QForm
+  QForm,
 })
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,11 +1,11 @@
 import os from 'os'
 export default () => {
-    const p = os.type();
-    const isWindows = p==='Windows_NT';
+  const p = os.type()
+  const isWindows = p === 'Windows_NT'
 
-    const isMacOs = p==='Darwin';
+  const isMacOs = p === 'Darwin'
 
-    const isLinux = p==='Linux';
+  const isLinux = p === 'Linux'
 
-    return { isWindows, isMacOs, isLinux }
+  return { isWindows, isMacOs, isLinux }
 }

@@ -16,21 +16,27 @@
           </template>
           {{ item.key }}
         </a-button>
-        <a-button style="margin-left: 10px" type="dashed" @click="handleClose(`${item.Name}-${item.key}`,item.key)" >关闭进程</a-button>
+        <a-button
+          style="margin-left: 10px"
+          type="dashed"
+          @click="handleClose(`${item.Name}-${item.key}`, item.key)"
+        >
+          关闭进程
+        </a-button>
         <a-button style="margin-left: 10px" type="dashed" :disabled="!item.pid">
-          进程号:{{item.pid}}
+          进程号:{{ item.pid }}
         </a-button>
       </div>
     </template>
     <div class="ProgramDrawer">
       <template v-for="key in consoleData" :key="key">
         <a-list item-layout="horizontal" :data-source="consoleData[key]">
-        <template #renderItem="{ item }">
-          <a-list-item>
-            <a-list-item-meta :description="item"></a-list-item-meta>
-          </a-list-item>
-        </template>
-      </a-list>
+          <template #renderItem="{ item }">
+            <a-list-item>
+              <a-list-item-meta :description="item"></a-list-item-meta>
+            </a-list-item>
+          </template>
+        </a-list>
       </template>
     </div>
   </a-drawer>

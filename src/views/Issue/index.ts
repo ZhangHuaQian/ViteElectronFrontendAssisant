@@ -11,7 +11,7 @@ const data: IssueFormState[] = []
 const dataSource = ref(data)
 
 const onEdit = (key: number) => {
-  GetKeyToItem(key).then(_ => {
+  GetKeyToItem(key).then((_) => {
     EditForm(_ as IssueFormState)
     setModalTitle('修改问题')
     setModalType('EDIT')
@@ -24,37 +24,44 @@ const onAdd = () => {
   showModal()
 }
 const hangleBulkImport = () => {
-  useBulkImportXLSX(AddItem, getData).then(res => {
-    message.success(res)
-  }).catch(e => {
-    message.error(e?.message)
-  })
+  useBulkImportXLSX(AddItem, getData)
+    .then((res) => {
+      message.success(res)
+    })
+    .catch((e) => {
+      message.error(e?.message)
+    })
 }
 
 const handleBulkExport = async () => {
-  useBulkExportXLSX(GetItem).then(res => {
-    message.success(res)
-  }).catch(e => {
-    message.error(e?.message)
-  })
-
+  useBulkExportXLSX(GetItem)
+    .then((res) => {
+      message.success(res)
+    })
+    .catch((e) => {
+      message.error(e?.message)
+    })
 }
 const getData = () => {
-  GetItem().then(res => {
-    dataSource.value = res as IssueFormState[]
-    message.success('获取成功')
-  }).catch(_ => {
-    console.log(_)
-  })
+  GetItem()
+    .then((res) => {
+      dataSource.value = res as IssueFormState[]
+      message.success('获取成功')
+    })
+    .catch((_) => {
+      console.log(_)
+    })
 }
 
 const onDelete = (key: number) => {
-  DeleteItem(key).then(_ => {
-    console.log(_)
-    getData()
-  }).catch(_ => {
-    console.log(_)
-  })
+  DeleteItem(key)
+    .then((_) => {
+      console.log(_)
+      getData()
+    })
+    .catch((_) => {
+      console.log(_)
+    })
 }
 
 const columns = [
@@ -62,19 +69,19 @@ const columns = [
     title: '问题简述',
     dataIndex: 'issue',
     width: '25%',
-    slots: { customRender: 'issue' }
+    slots: { customRender: 'issue' },
   },
   {
     title: '解决方案',
     dataIndex: 'solution',
     width: '40%',
-    slots: { customRender: 'solution' }
+    slots: { customRender: 'solution' },
   },
   {
     title: 'operation',
     dataIndex: 'operation',
-    slots: { customRender: 'operation' }
-  }
+    slots: { customRender: 'operation' },
+  },
 ]
 
 export { getData, onDelete, dataSource, columns, onEdit, onAdd, hangleBulkImport, handleBulkExport }

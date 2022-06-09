@@ -1,25 +1,25 @@
 <template>
-    <div class="Program">
-        <div class="nav">
-            <a-tooltip  title="添加项目" color="#BEBEBE" placement="rightBottom" @click="showModal">
-                <div class="AddButton">
-                    <PlusSquareOutlined :style="{fontSize: '30px'}" />
-                </div>
-            </a-tooltip>
+  <div class="Program">
+    <div class="nav">
+      <a-tooltip title="添加项目" color="#BEBEBE" placement="rightBottom" @click="showModal">
+        <div class="AddButton">
+          <PlusSquareOutlined :style="{ fontSize: '30px' }" />
         </div>
-        <a-spin :spinning="spinning" :delay="delayTime">
-            <div class="context">
-            <template v-for="item in dataSource" :key="item.key">
-                <div class="itemContext">
-                <QCard :data="item" />
-                </div>
-            </template>
-        </div>
-        </a-spin>
+      </a-tooltip>
     </div>
-    <QModal />
-    <QDrawer />
-    <QGitModal />
+    <a-spin :spinning="spinning" :delay="delayTime">
+      <div class="context">
+        <template v-for="item in dataSource" :key="item.key">
+          <div class="itemContext">
+            <QCard :data="item" />
+          </div>
+        </template>
+      </div>
+    </a-spin>
+  </div>
+  <QModal />
+  <QDrawer />
+  <QGitModal />
 </template>
 
 <script lang="ts" setup>
@@ -37,7 +37,7 @@ defineComponent({
   QModal,
   QCard,
   QDrawer,
-  QGitModal
+  QGitModal,
 })
 
 onMounted(() => {
@@ -45,6 +45,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

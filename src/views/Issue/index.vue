@@ -8,7 +8,7 @@
       </a-tooltip>
       <a-tooltip title="批量记录" color="#BEBEBE" placement="bottom" @click="hangleBulkImport">
         <div class="AddButton">
-          <import-outlined :style="{ fontSize: '30px' }" /> 
+          <import-outlined :style="{ fontSize: '30px' }" />
         </div>
       </a-tooltip>
       <a-tooltip title="批量导出" color="#BEBEBE" placement="bottom" @click="handleBulkExport">

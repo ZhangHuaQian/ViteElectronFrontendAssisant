@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { ipcRenderer } from 'electron'
-import useLocalStore from '../../../utils/useLocalStore';
+import useLocalStore from '../../../utils/useLocalStore'
 import { setNpmScripsPID } from './Card'
 const visible = ref<boolean>(false)
 let consoleData = ref<Record<any, string[]>>({})
@@ -13,7 +13,7 @@ const handleClick = (script: Scrips) => {
 }
 
 const handleClose = (key: string, KEYName: string) => {
-  const { get, del } = useLocalStore(key);
+  const { get, del } = useLocalStore(key)
   ipcRenderer.send('NpmKill', get().pid)
   setNpmScripsPID(KEYName, 0)
   del()
@@ -26,9 +26,9 @@ const drawerClose = () => {
 ipcRenderer.on('NpmRunningResult', (e, { PID, KEY, DATA, KEYName }) => {
   //第一次传输
   if (!consoleData.value[KEY]) {
-    consoleData.value[KEY] = [];
-    const { set } = useLocalStore(KEY);
-    set({ pid: PID });
+    consoleData.value[KEY] = []
+    const { set } = useLocalStore(KEY)
+    set({ pid: PID })
     setNpmScripsPID(KEYName, PID)
   }
   consoleData.value[KEY].push(DATA)
