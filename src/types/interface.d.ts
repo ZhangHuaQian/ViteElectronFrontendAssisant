@@ -18,7 +18,9 @@ interface CodeFormState {
 }
 interface Scrips {
   key: string,
-  Path: string
+  Path: string,
+  Name:string,
+  pid:number,
 }
 
 interface ProgramFormState {

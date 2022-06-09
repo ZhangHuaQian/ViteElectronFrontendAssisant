@@ -1,16 +1,16 @@
 // electron-main/index.ts
 import { app, BrowserWindow, protocol, ipcMain, Menu, MenuItemConstructorOptions, dialog } from "electron";
 import path from "path";
-import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
-import { exec, spawn, ChildProcess } from 'child_process'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import { spawn, ChildProcess } from 'child_process'
 import { autoUpdater } from 'electron-updater'
 import useOpenDialog from './utils/useOpenDialog'
 import useSaveDialog from "./utils/useSaveDialog";
-const controller = new AbortController();
-const { signal } = controller;
-let workerProcess: ChildProcess
+import useKillProcess from './utils/useKillProcess'
+import useNpmRuning from './utils/useNpmRuning'
+let workerProcessStore: { [key: string]: ChildProcess } = {}
 const isDevelopment = process.env.NODE_ENV !== 'production'
-let win: any
+let win: any;
 
 //自定义菜单
 const template = [{
@@ -89,15 +89,14 @@ app.whenReady().then(async () => {
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-  if (isDevelopment) {
-    console.log(VUEJS3_DEVTOOLS.id)
-    // Install Vue Devtools
-    try {
-      await installExtension(VUEJS3_DEVTOOLS)
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', (e as any).toString())
-    }
-  }
+  // if (isDevelopment) {
+  //   // Install Vue Devtools
+  //   try {
+  //     await installExtension(VUEJS_DEVTOOLS.id)
+  //   } catch (e) {
+  //     console.error('Vue Devtools failed to install:', (e as any).toString())
+  //   }
+  // }
   createWindow()
   autoUpdater.checkForUpdatesAndNotify()
   ipcMain.on('close', e =>
@@ -110,48 +109,32 @@ app.whenReady().then(async () => {
   ipcMain.on('insertData', (e, args) => {
     console.log(args)
   })
-  ipcMain.on('NpmKill', () => {
-
-    console.log(workerProcess.pid);
-    workerProcess.kill('SIGINT');
-    console.log(workerProcess.killed)
+  ipcMain.on('NpmKill', (e, pid) => {
+    const workerProcess = workerProcessStore[pid]
+    const result = useKillProcess(pid, workerProcess);
+    result.catch(e => {
+      console.log('kill-result-error:%s', e)
+    })
   })
-  ipcMain.on('NpmRunning', (e, key, Path) => {
-    // 修改环境 development -> production
-    const env = {
-      ...process.env,
-      NODE_ENV: 'production'
+  ipcMain.on('NpmRunning', (e, key, Path, Name) => {
+    const { PID, workerProcess } = useNpmRuning(e, key, Path, Name);
+    if (PID) {
+      workerProcessStore[PID] = workerProcess;
     }
-    //, maxBuffer: 1024 * 1024 * 1024 * 1024  ,detached: true
-    workerProcess = spawn('npm run ' + key, { cwd: Path, windowsHide: false, stdio: ['ignore', 'pipe', 'pipe'], shell: 'powershell', env })
-    workerProcess?.stdout?.on('data', (data: string) => {
-      console.log(data.toString())
-      // consoleData.value.push(data)
-      e.sender.send('NpmRunningResult', data.toString())
-    })
-    workerProcess.stderr?.on('data', data => {
-      console.log('errordata', data.toString())
-    })
-    workerProcess.on('error', (error: Event) => {
-      console.log(error)
-    })
-    workerProcess.on('exit', (code, signal) => {
-      console.log(code, signal, 'exit')
-    })
-  }),
-    ipcMain.on('contextmenu', (e) => {
-      rightMenu.popup()
-    }),
-    ipcMain.on('openFile', async (e, arg) => {
-      const usedialog = await useOpenDialog(dialog, arg);
-      await e.sender.send('openFileCallBack', usedialog);
+  })
+  ipcMain.on('contextmenu', (e) => {
+    rightMenu.popup()
+  })
+  ipcMain.on('openFile', async (e, arg) => {
+    const usedialog = await useOpenDialog(dialog, arg);
+    await e.sender.send('openFileCallBack', usedialog);
 
-    }),
-    ipcMain.on('savaFile', async (e, arg) => {
-      const usedialog = await useSaveDialog(dialog, arg);
-      await e.sender.send('savaFileCallBack', usedialog);
+  })
+  ipcMain.on('savaFile', async (e, arg) => {
+    let usedialog = await useSaveDialog(dialog, arg);
+    await e.sender.send('savaFileCallBack', usedialog);
 
-    })
+  })
 });
 
 

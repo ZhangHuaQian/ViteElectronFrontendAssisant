@@ -11,6 +11,7 @@ export default (arg: OpenDialogArg, data: Buffer): Promise<any> => {
     return new Promise(async (resolve, reject) => {
         await ipcRenderer.send('savaFile', arg);
         await ipcRenderer.on('savaFileCallBack', async (e, result) => {
+            
             if (!result.canceled) {
                 fs.writeFile(result.filePath, data, {}, (err) => {
                     if (err) {

@@ -30,9 +30,7 @@ const cancel = (key: number) => {
   delete editableData[key]
 }
 const onDelete = (key: number) => {
-  console.log(key)
   DeleteItem(key).then(_ => {
-    // console.log(_)
     getData()
   }).catch(_ => {
     console.log(_)

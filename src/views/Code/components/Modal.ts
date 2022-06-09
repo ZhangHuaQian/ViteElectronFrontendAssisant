@@ -11,7 +11,7 @@ const handleOk = (): void => {
   validate().then(() => {
     switch (modalType.value) {
       case 'ADD':
-        AddItem(formState.value.describe, formState.value.solution).then(_ => {
+        AddItem({ describe: formState.value.describe, solution: formState.value.solution }).then(_ => {
           console.log(_)
           message.success('添加成功')
           resetFields()

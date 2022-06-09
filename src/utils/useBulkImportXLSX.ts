@@ -1,6 +1,6 @@
 import useOpenFileForBuffer from '@/utils/useOpenFileForBuffer'
 import * as xlsx from 'xlsx'
-export default (addCallBack: (describe: string, solution: string) => Promise<any>, finallyCallBack: () => void) => {
+export default function <T>(addCallBack: (item: T) => Promise<any>, finallyCallBack: () => void) {
     return new Promise<string>((resolve, reject) => {
         const file = useOpenFileForBuffer(
             {
@@ -13,11 +13,18 @@ export default (addCallBack: (describe: string, solution: string) => Promise<any
             const result = xlsx.read(res, {
                 type: 'array',
             })
-            const addData = xlsx.utils.sheet_to_json(result.Sheets[result.SheetNames[0]]) as CodeFormState[] || [];
-            addData.forEach(item => {
-                addCallBack(item?.describe, item?.solution)
+            const addData: T[] = xlsx.utils.sheet_to_json(result.Sheets[result.SheetNames[0]]);
+            const errorArr: T[] = []
+            addData.forEach((item, index) => {
+                addCallBack(item).catch(e => { errorArr.push(item); reject(e) });
+                if (addData.length === index + 1 && errorArr.length) {
+                    console.log(errorArr)
+                    resolve('存在未能导入成功的项')
+                } else {
+                    resolve('导入成功')
+                }
             })
-            resolve('导入成功')
+
         }).catch((e) => {
             reject(e)
         }).finally(() => {

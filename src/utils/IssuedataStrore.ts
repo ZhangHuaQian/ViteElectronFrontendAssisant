@@ -18,7 +18,7 @@ class IssueDatabase extends Dexie {
 
 const db = new IssueDatabase()
 
-const AddItem = (issue: string, solution: string) => {
+const AddItem = ({issue, solution}:Issue) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.Issues, async () => {
       const id = await db.Issues.add({ issue, solution })

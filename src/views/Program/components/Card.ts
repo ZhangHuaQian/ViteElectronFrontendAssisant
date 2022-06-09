@@ -2,6 +2,7 @@ import { readFile } from 'fs'
 import { ref } from 'vue'
 import { visible } from './drawer'
 import { message } from 'ant-design-vue'
+import useLocalStore from '../../../utils/useLocalStore';
 
 const NpmScrips = ref<Scrips[]>([])
 
@@ -13,15 +14,29 @@ const showDrawer = (ActionData: ProgramFormState) => {
       return
     }
     const readData = JSON.parse(data)
-    const scriptsKey = Object.keys(readData.scripts)
+    const scriptsKey = Object.keys(readData.scripts);
+
+
     NpmScrips.value = scriptsKey.map(_ => {
+      const { get } = useLocalStore(`${ActionData.projectName}-${_}`);
+      const p = get()?.pid
       return {
         key: _,
-        Path: ActionData.projectAddress
+        Path: ActionData.projectAddress,
+        Name: ActionData.projectName,
+        pid: p ? p : 0
       }
     })
     visible.value = true
   })
 }
 
-export { showDrawer, NpmScrips }
+const setNpmScripsPID = (key: string, pid: number) => {
+  NpmScrips.value.map(item => {
+    if (item.key === key) {
+      item.pid = pid
+    }
+  })
+}
+
+export { showDrawer, NpmScrips, setNpmScripsPID }

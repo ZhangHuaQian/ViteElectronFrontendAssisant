@@ -18,7 +18,7 @@ class CodeDatabase extends Dexie {
 
 const db = new CodeDatabase()
 
-const AddItem = (describe: string, solution: string) => {
+const AddItem = ({describe, solution}:Code) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.CodeStore, async () => {
       const id = await db.CodeStore.add({ describe, solution })

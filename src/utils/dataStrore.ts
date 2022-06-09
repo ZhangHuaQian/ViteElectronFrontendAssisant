@@ -18,7 +18,7 @@ class TechnicalDatabase extends Dexie {
 
 const db = new TechnicalDatabase()
 
-const AddItem = (articleName: string, articleAddress: string) => {
+const AddItem = ({articleName, articleAddress}:Technical) => {
   return new Promise((resolve, reject) => {
     db.transaction('rw', db.Technical, async () => {
       if ((await db.Technical.where({ articleName }).count()) === 0) {
