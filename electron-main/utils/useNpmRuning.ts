@@ -11,15 +11,15 @@ export default (e: IpcMainEvent, key: string, Path: string, Name: string) => {
   workerProcess = spawn('npm run ' + key, {
     cwd: Path,
     windowsHide: false,
-    stdio: ['ignore', 'pipe', 'pipe'],
+    stdio: ['pipe', null, null, null, 'pipe'],
     shell: 'powershell',
     env,
   })
   console.log(workerProcess.pid)
   const PID = workerProcess.pid
   workerProcess?.stdout?.on('data', (data: string) => {
-    console.log('workerProcess-staout-data:%s', data.toString())
-    e.sender.send('NpmRunningResult', { PID, KEY, DATA: data.toString(), KEYName: key })
+    console.log('workerProcess-staout-data:%s', data)
+    e.sender.send('NpmRunningResult', { PID, KEY, DATA: data, KEYName: key })
   })
   workerProcess.stderr?.on('data', (data) => {
     console.log('workerProcess-stderr-data:%s', data.toString())

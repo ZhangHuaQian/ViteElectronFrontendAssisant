@@ -5,8 +5,9 @@
     :destroyOnClose="true"
     :maskClosable="false"
     @close="drawerClose"
-    width="640"
+    width="900"
     v-model:visible="visible"
+    class="programDrawer"
   >
     <template v-for="item in NpmScrips" :key="item.key">
       <div style="margin: 5px">
@@ -19,6 +20,7 @@
         <a-button
           style="margin-left: 10px"
           type="dashed"
+          :disabled="!item.pid"
           @click="handleClose(`${item.Name}-${item.key}`, item.key)"
         >
           关闭进程
@@ -28,15 +30,12 @@
         </a-button>
       </div>
     </template>
+    <nav>控制台输出</nav>
     <div class="ProgramDrawer">
-      <template v-for="key in consoleData" :key="key">
-        <a-list item-layout="horizontal" :data-source="consoleData[key]">
-          <template #renderItem="{ item }">
-            <a-list-item>
-              <a-list-item-meta :description="item"></a-list-item-meta>
-            </a-list-item>
-          </template>
-        </a-list>
+      <template v-for="[key, value] in Object.entries(consoleData)" :key="key">
+        <template v-for="item in value">
+          <div v-html="item"></div>
+        </template>
       </template>
     </div>
   </a-drawer>

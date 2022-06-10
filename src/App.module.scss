@@ -4,7 +4,6 @@
 @import './styles/Zoom.modules.scss';
 @import './styles/Program.module.scss';
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: Pacifico, cursive;
@@ -40,4 +39,11 @@
       background: #fff;
     }
   }
+}
+
+.programDrawer {
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Pacifico, cursive;
 }

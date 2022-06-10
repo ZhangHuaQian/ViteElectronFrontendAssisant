@@ -6,7 +6,16 @@
           <div>{{ props.data.projectName }}</div>
         </a-form-item>
         <a-form-item label="项目地址">
-          <div>{{ props.data.projectAddress }}</div>
+          <div>
+            {{ props.data.projectAddress }}
+            <a-tag
+              color="cyan"
+              style="cursor: pointer"
+              @click="showItemInFolder(props.data.projectAddress)"
+            >
+              open
+            </a-tag>
+          </div>
         </a-form-item>
         <a-form-item label="git仓库地址">
           <div>
@@ -41,7 +50,7 @@
 <script lang="ts" setup>
 import { reactive, defineProps } from 'vue'
 import type { PropType } from 'vue'
-import { showDrawer } from './Card'
+import { showDrawer, showItemInFolder } from './Card'
 import { handleEdit } from './Modal'
 import { handleDelece } from '../index'
 import { showGitModal } from './GitModal'

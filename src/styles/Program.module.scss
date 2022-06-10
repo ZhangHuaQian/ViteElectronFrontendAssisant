@@ -39,35 +39,37 @@
 }
 
 .ProgramCard {
-    .cardContext {
+  .cardContext {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    .ribbon {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 10px;
+      .ribbon_com {
         display: grid;
-        grid-template-columns: 50% 50%;
-        .ribbon {
-            display: grid;
-            grid-template-columns: 1fr;
-            row-gap: 10px;
-            .ribbon_com {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                background-color: red;
-            }
-        }
+        grid-template-columns: 1fr 1fr 1fr;
+        background-color: red;
+      }
     }
+  }
 }
-
+nav {
+  display: grid;
+  justify-items: center;
+  font-size: 20px;
+}
 .ProgramDrawer {
-    margin-top: 20px;
-    height: 760px;
-    overflow-y: scroll;
+  margin-top: 20px;
+  height: 760px;
+  overflow-y: scroll;
 }
 .ProgramDrawer::-webkit-scrollbar {
-    width: 4px;
+  width: 4px;
 }
 .ProgramDrawer::-webkit-scrollbar-track {
-    background-color: #fff;
+  background-color: #fff;
 }
 .ProgramDrawer::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+  background-color: #ccc;
 }
-
-

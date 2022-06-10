@@ -2,6 +2,7 @@ import { readFile } from 'fs'
 import { ref } from 'vue'
 import { visible } from './drawer'
 import { message } from 'ant-design-vue'
+import { shell } from 'electron'
 import useLocalStore from '../../../utils/useLocalStore'
 
 const NpmScrips = ref<Scrips[]>([])
@@ -38,4 +39,8 @@ const setNpmScripsPID = (key: string, pid: number) => {
   })
 }
 
-export { showDrawer, NpmScrips, setNpmScripsPID }
+const showItemInFolder = (path:string)=>{
+  shell.showItemInFolder(path)
+}
+
+export { showDrawer, NpmScrips, setNpmScripsPID,showItemInFolder }

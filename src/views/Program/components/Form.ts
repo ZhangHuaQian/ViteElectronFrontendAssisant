@@ -2,18 +2,6 @@ import { reactive, UnwrapRef, ref } from 'vue'
 import { Form } from 'ant-design-vue'
 const EditRef = ref()
 const useForm = Form.useForm
-// interface FormState {
-//     projectName: string;
-//     projectAddress: string;
-//     gitDepot: string;
-//     key: number;
-// }
-// interface EditForm {
-//   projectName: string;
-//   projectAddress: string;
-//   gitDepot: string;
-//   key: number;
-// }
 const editableData: UnwrapRef<ProgramEditForm> = reactive({
   projectName: '',
   projectAddress: '',
