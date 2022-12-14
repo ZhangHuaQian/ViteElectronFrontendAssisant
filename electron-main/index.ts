@@ -60,6 +60,7 @@ const createWindow = () => {
     webPreferences: {
       contextIsolation: false, // 是否开启隔离上下文
       nodeIntegration: true, // 渲染进程使用Node API
+      webSecurity: false,
       preload: path.join(__dirname, '../electron-preload/index.js'), // 需要引用js文件
     },
   })

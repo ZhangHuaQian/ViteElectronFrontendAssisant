@@ -5,12 +5,8 @@ let GridItem = ref<BookItem[]>([])
 let spinning: Spinning = false
 const Init = () => {
   spinning = true
-  Axios.get('https://weekly.zoo.team/').then((res) => {
-    return res.data.split('<script>')[1].split('</script>')[0].split('=')[1]
-  }).then((res) => {
-    return JSON.parse(res)
-  }).then((res) => {
-    GridItem.value = res.homeStore.cardList.reverse()
+  Axios.get('http://zoo.zhengcaiyun.cn/api/api/weeks/list/').then(res=>res.data.reverse()).then((res) => {
+    GridItem.value = res
     spinning = false
   }).catch((e) => { console.log(e) })
 }

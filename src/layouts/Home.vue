@@ -25,7 +25,7 @@
           <router-view></router-view>
         </a-layout-content>
         <a-layout-footer style="text-align: center">
-          &copy; 2021 光屁屁.All Rights Reserved.
+          &copy; 2021-2022 光屁屁.All Rights Reserved.
         </a-layout-footer>
       </a-layout>
     </a-layout>

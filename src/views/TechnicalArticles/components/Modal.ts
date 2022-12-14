@@ -8,7 +8,7 @@ export const visible = ref<boolean>(false)
 export const handleOk = (): void => {
   validate().then(() => {
     console.log('values', formState, toRaw(formState))
-    AddItem({ articleAddress: toRaw(formState).articleName, articleName: toRaw(formState).articleAddress }).then(_ => {
+    AddItem({ articleAddress: toRaw(formState).articleAddress, articleName: toRaw(formState).articleName }).then(_ => {
       message.success('添加成功')
       resetFields()
       getData()
