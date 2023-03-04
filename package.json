@@ -1,12 +1,13 @@
 {
   "name": "vite-electron-FED",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "dist/electron-main/index.js",
   "scripts": {
     "dev": "vite",
     "build": "rimraf dist && vite build && electron-builder",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "rimraf dist && vite build && electron-builder build --win -p always"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -69,8 +70,11 @@
     },
     "publish": [
       {
-        "provider": "generic",
-        "url": "http://127.0.0.1:8080"
+        "provider": "github",
+        "owner": "ZhangHuaQian",
+        "repo": "ViteElectronFrontendAssisant",
+        "private": true,
+        "releaseType": "release"
       }
     ],
     "releaseInfo": {
