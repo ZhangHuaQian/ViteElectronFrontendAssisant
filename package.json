@@ -1,5 +1,5 @@
 {
-  "name": "vite-electron-template",
+  "name": "vite-electron-FED",
   "private": true,
   "version": "0.0.1",
   "main": "dist/electron-main/index.js",
@@ -34,8 +34,8 @@
     "vue-tsc": "^0.34.7"
   },
   "build": {
-    "appId": "com.guangpipi.desktop",
-    "productName": "guangpipi",
+    "appId": "com.FontendAssistant.desktop",
+    "productName": "前端开发者助手",
     "asar": true,
     "copyright": "Copyright © 2022 guangpipi",
     "directories": {
