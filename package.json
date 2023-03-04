@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "rimraf dist && vite build && electron-builder",
     "preview": "vite preview",
-    "release": "rimraf dist && vite build && electron-builder build --win -p always"
+    "release": "rimraf dist && vite build && electron-builder --win -p always"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -73,7 +73,8 @@
         "provider": "github",
         "owner": "ZhangHuaQian",
         "repo": "ViteElectronFrontendAssisant",
-        "private": true,
+        "private": false,
+        "token": "",
         "releaseType": "release"
       }
     ],

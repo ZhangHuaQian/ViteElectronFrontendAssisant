@@ -77,11 +77,22 @@ autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...')
 })
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.')
+  dialog
+    .showMessageBox({
+      type: 'warning',
+      title: '更新提示',
+      message: '有新版本发布了',
+      buttons: ['更新', '取消'],
+      cancelId: 1,
+    })
+    .then((res) => {
+      if (res.response == 0) {
+        //开始下载更新
+        autoUpdater.downloadUpdate()
+      }
+    })
 })
-autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.')
-})
+autoUpdater.on('update-not-available', (info) => {})
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err)
 })
@@ -93,6 +104,7 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded')
+  autoUpdater.quitAndInstall()
 })
 
 app.whenReady().then(async () => {
